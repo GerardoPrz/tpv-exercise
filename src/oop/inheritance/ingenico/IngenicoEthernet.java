@@ -4,6 +4,15 @@ import oop.inheritance.data.Transaction;
 import oop.inheritance.data.TransactionResponse;
 
 public class IngenicoEthernet {
+    // private static SedePrincipal instance = new SedePrincipal();
+    private static IngenicoEthernet ethernet = new IngenicoEthernet();
+
+    private IngenicoEthernet() {}
+
+    public static IngenicoEthernet getInstance() {
+        return ethernet;
+    }
+
 
     /**
      * Opens a connection using the ethernet device

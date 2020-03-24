@@ -7,7 +7,7 @@ public class IngenicoEthernet {
     // private static SedePrincipal instance = new SedePrincipal();
     private static IngenicoEthernet ethernet = new IngenicoEthernet();
 
-    private IngenicoEthernet() {}
+    public IngenicoEthernet() {}
 
     public static IngenicoEthernet getInstance() {
         return ethernet;

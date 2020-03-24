@@ -6,7 +6,7 @@ import oop.inheritance.data.TransactionResponse;
 public class IngenicoGPS {
     private static IngenicoGPS gps = new IngenicoGPS();
 
-    private IngenicoGPS() {}
+    public IngenicoGPS() {}
 
     public static IngenicoGPS getInstance() {
         return gps;

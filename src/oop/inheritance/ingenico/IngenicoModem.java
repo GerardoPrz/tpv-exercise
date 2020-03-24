@@ -6,7 +6,7 @@ import oop.inheritance.data.TransactionResponse;
 public class IngenicoModem {
     private static IngenicoModem modem = new IngenicoModem();
 
-    private IngenicoModem() {}
+    public IngenicoModem() {}
 
     public static IngenicoModem getInstance() {
         return modem;

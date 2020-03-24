@@ -8,16 +8,9 @@ import oop.inheritance.data.SupportedTerminal;
 import oop.inheritance.data.Transaction;
 import oop.inheritance.data.TransactionBuilder;
 import oop.inheritance.data.TransactionResponse;
-import oop.inheritance.ingenico.IngenicoCardSwipper;
-import oop.inheritance.ingenico.IngenicoChipReader;
-import oop.inheritance.ingenico.IngenicoDisplay;
-import oop.inheritance.ingenico.IngenicoEthernet;
-import oop.inheritance.ingenico.IngenicoGPS;
-import oop.inheritance.ingenico.IngenicoKeyboard;
-import oop.inheritance.ingenico.IngenicoModem;
-import oop.inheritance.ingenico.IngenicoPrinter;
+import oop.inheritance.ingenico.*;
 import oop.inheritance.verifone.v240m.VerifoneV240mDisplay;
-
+import oop.inheritance.ingenico.Context;
 public class Application {
 
     private CommunicationType communicationType = CommunicationType.ETHERNET;
@@ -26,7 +19,7 @@ public class Application {
     public Application(SupportedTerminal supportedTerminal) {
         this.supportedTerminal = supportedTerminal;
     }
-
+    //abstractFactory
     public void showMenu() {
         if (supportedTerminal == SupportedTerminal.INGENICO) {
             IngenicoDisplay ingenicoDisplay = new IngenicoDisplay();
@@ -47,7 +40,7 @@ public class Application {
         }
 
     }
-
+    //abstractFactory
     public String readKey() {
         IngenicoKeyboard ingenicoKeyboard = new IngenicoKeyboard();
 
@@ -104,6 +97,9 @@ public class Application {
     }
 
     private TransactionResponse sendSale(Transaction transaction) {
+
+        Context Context;
+
         IngenicoEthernet ethernet = new IngenicoEthernet();
         IngenicoModem modem = new IngenicoModem();
         IngenicoGPS gps = new IngenicoGPS();
@@ -111,22 +107,25 @@ public class Application {
 
         switch (communicationType) {
             case ETHERNET:
-                ethernet.open();
-                ethernet.send(transaction);
-                transactionResponse = ethernet.receive();
-                ethernet.close();
+                Context = new Context(ethernet);
+                Context.open();
+                Context.send(transaction);
+                transactionResponse = Context.receive();
+                Context.close();
                 break;
             case GPS:
-                gps.open();
-                gps.send(transaction);
-                transactionResponse = gps.receive();
-                gps.close();
+                Context = new Context(gps);
+                Context.open();
+                Context.send(transaction);
+                transactionResponse = Context.receive();
+                Context.close();
                 break;
             case MODEM:
-                modem.open();
-                modem.send(transaction);
-                transactionResponse = modem.receive();
-                modem.close();
+                Context = new Context(modem);
+                Context.open();
+                Context.send(transaction);
+                transactionResponse = Context.receive();
+                Context.close();
                 break;
         }
 
@@ -141,7 +140,7 @@ public class Application {
 
     public void showConfiguration() {
     }
-
+//abstractFactory
     public void clearScreen() {
         if (supportedTerminal == SupportedTerminal.INGENICO) {
             IngenicoDisplay ingenicoDisplay = new IngenicoDisplay();
@@ -152,5 +151,5 @@ public class Application {
 
             verifoneV240mDisplay.clear();
         }
-    }
+    } //abstractFactory
 }

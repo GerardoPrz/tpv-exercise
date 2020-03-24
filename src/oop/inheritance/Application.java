@@ -6,6 +6,7 @@ import oop.inheritance.data.Card;
 import oop.inheritance.data.CommunicationType;
 import oop.inheritance.data.SupportedTerminal;
 import oop.inheritance.data.Transaction;
+import oop.inheritance.data.TransactionBuilder;
 import oop.inheritance.data.TransactionResponse;
 import oop.inheritance.ingenico.IngenicoCardSwipper;
 import oop.inheritance.ingenico.IngenicoChipReader;
@@ -74,9 +75,9 @@ public class Application {
 
         Transaction transaction = new Transaction();
 
-        transaction.setLocalDateTime(LocalDateTime.now());
-        transaction.setCard(card);
-        transaction.setAmountInCents(Integer.parseInt(amount.replace(".", "")));
+        TransactionBuilder.setLocalDateTime(LocalDateTime.now());
+        TransactionBuilder.setCard(card);
+        TransactionBuilder.setAmountInCents(Integer.parseInt(amount.replace(".", "")));
 
         TransactionResponse response = sendSale(transaction);
 
